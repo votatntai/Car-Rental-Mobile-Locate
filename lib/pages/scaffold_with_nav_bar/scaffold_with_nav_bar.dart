@@ -21,13 +21,13 @@ class ScaffoldWithNavBar extends StatelessWidget {
         unselectedItemColor: CustomColors.silver,
         items: const [
           BottomNavigationBarItem(
-              label: 'Home',
+              label: 'Trang chủ',
               icon: Icon(
                 Icons.home_outlined,
               ),
               activeIcon: Icon(Icons.home)),
           BottomNavigationBarItem(
-              label: 'Profile',
+              label: 'Hồ sơ',
               icon: Icon(
                 Icons.person_outline,
               ),

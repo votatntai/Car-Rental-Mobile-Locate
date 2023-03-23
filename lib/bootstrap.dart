@@ -24,13 +24,14 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
-  Bloc.observer = AppBlocObserver();
+  // Bloc.observer = AppBlocObserver();
 
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
       //* configure
+      await requestPermission();
       await configDI();
 
       return runApp(await builder());

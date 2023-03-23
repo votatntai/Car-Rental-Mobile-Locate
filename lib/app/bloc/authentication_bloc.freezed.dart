@@ -224,6 +224,7 @@ abstract class _StatusChangedEvent implements AuthenticationEvent {
 /// @nodoc
 mixin _$AuthenticationState {
   AuthenticationStatus get status => throw _privateConstructorUsedError;
+  CarOwner? get carOwner => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthenticationStateCopyWith<AuthenticationState> get copyWith =>
@@ -236,7 +237,9 @@ abstract class $AuthenticationStateCopyWith<$Res> {
           AuthenticationState value, $Res Function(AuthenticationState) then) =
       _$AuthenticationStateCopyWithImpl<$Res, AuthenticationState>;
   @useResult
-  $Res call({AuthenticationStatus status});
+  $Res call({AuthenticationStatus status, CarOwner? carOwner});
+
+  $CarOwnerCopyWith<$Res>? get carOwner;
 }
 
 /// @nodoc
@@ -253,13 +256,30 @@ class _$AuthenticationStateCopyWithImpl<$Res, $Val extends AuthenticationState>
   @override
   $Res call({
     Object? status = null,
+    Object? carOwner = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AuthenticationStatus,
+      carOwner: freezed == carOwner
+          ? _value.carOwner
+          : carOwner // ignore: cast_nullable_to_non_nullable
+              as CarOwner?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CarOwnerCopyWith<$Res>? get carOwner {
+    if (_value.carOwner == null) {
+      return null;
+    }
+
+    return $CarOwnerCopyWith<$Res>(_value.carOwner!, (value) {
+      return _then(_value.copyWith(carOwner: value) as $Val);
+    });
   }
 }
 
@@ -271,7 +291,10 @@ abstract class _$$_AuthenticationStateCopyWith<$Res>
       __$$_AuthenticationStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AuthenticationStatus status});
+  $Res call({AuthenticationStatus status, CarOwner? carOwner});
+
+  @override
+  $CarOwnerCopyWith<$Res>? get carOwner;
 }
 
 /// @nodoc
@@ -286,12 +309,17 @@ class __$$_AuthenticationStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? carOwner = freezed,
   }) {
     return _then(_$_AuthenticationState(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AuthenticationStatus,
+      carOwner: freezed == carOwner
+          ? _value.carOwner
+          : carOwner // ignore: cast_nullable_to_non_nullable
+              as CarOwner?,
     ));
   }
 }
@@ -299,14 +327,16 @@ class __$$_AuthenticationStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AuthenticationState implements _AuthenticationState {
-  const _$_AuthenticationState({required this.status});
+  const _$_AuthenticationState({required this.status, this.carOwner});
 
   @override
   final AuthenticationStatus status;
+  @override
+  final CarOwner? carOwner;
 
   @override
   String toString() {
-    return 'AuthenticationState(status: $status)';
+    return 'AuthenticationState(status: $status, carOwner: $carOwner)';
   }
 
   @override
@@ -314,11 +344,13 @@ class _$_AuthenticationState implements _AuthenticationState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AuthenticationState &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.carOwner, carOwner) ||
+                other.carOwner == carOwner));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status);
+  int get hashCode => Object.hash(runtimeType, status, carOwner);
 
   @JsonKey(ignore: true)
   @override
@@ -330,10 +362,13 @@ class _$_AuthenticationState implements _AuthenticationState {
 
 abstract class _AuthenticationState implements AuthenticationState {
   const factory _AuthenticationState(
-      {required final AuthenticationStatus status}) = _$_AuthenticationState;
+      {required final AuthenticationStatus status,
+      final CarOwner? carOwner}) = _$_AuthenticationState;
 
   @override
   AuthenticationStatus get status;
+  @override
+  CarOwner? get carOwner;
   @override
   @JsonKey(ignore: true)
   _$$_AuthenticationStateCopyWith<_$_AuthenticationState> get copyWith =>

@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:car_rental_locate/app/dio_helper.dart';
 import 'package:car_rental_locate/di.dart';
+import 'package:car_rental_locate/models/car_owner.dart';
 import 'package:car_rental_locate/repositories/authentication_repository.dart';
+import 'package:car_rental_locate/repositories/car_owner_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'authentication_bloc.freezed.dart';
@@ -14,6 +16,7 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({
     required this.authenticationRepository,
+    required this.carOwnerRepository,
   }) : super(const AuthenticationState(status: AuthenticationStatus.unknown)) {
     on<_StatusChangedEvent>(_onStatusChanged);
 
@@ -24,6 +27,7 @@ class AuthenticationBloc
   }
 
   final AuthenticationRepository authenticationRepository;
+  final CarOwnerRepository carOwnerRepository;
 
   late StreamSubscription<AuthenticationStatus>
       _authenticationStatusSubscription;
@@ -55,29 +59,29 @@ class AuthenticationBloc
         //* config dio
         await getIt.get<DioHelper>().initDioInterceptors();
 
-        // final user = await _tryGetUser();
-        // if (user == null) {
-        //   return emit(
-        //     const AuthenticationState(
-        //       status: AuthenticationStatus.unauthenticated,
-        //     ),
-        //   );
-        // }
-
+        final carOwner = await _tryGetUser();
+        if (carOwner == null) {
+          emit(
+            const AuthenticationState(
+              status: AuthenticationStatus.unauthenticated,
+            ),
+          );
+          return;
+        }
         emit(AuthenticationState(
           status: event.status,
-          // user: user,
+          carOwner: carOwner,
         ));
         break;
     }
   }
 
-// Future<User?> _tryGetUser() async {
-//   try {
-//     final user = await _userRepository.getProfile();
-//     return user;
-//   } catch (_) {
-//     return null;
-//   }
-// }
+  Future<CarOwner?> _tryGetUser() async {
+    try {
+      final user = await carOwnerRepository.getProfile();
+      return user;
+    } catch (_) {
+      return null;
+    }
+  }
 }

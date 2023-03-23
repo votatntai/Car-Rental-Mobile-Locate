@@ -48,10 +48,6 @@ class AuthenticationRepository {
 
         // save token
         await sharedPreferences.setString(accessTokenRefs, auth.token);
-        await sharedPreferences.setString(
-          refreshTokenRefs,
-          auth.refreshToken,
-        );
 
         // update auth status
         _authenticationController.add(AuthenticationStatus.authenticated);
@@ -66,12 +62,13 @@ class AuthenticationRepository {
   }
 
   Future<void> logOut() async {
+    _authenticationController.add(AuthenticationStatus.unauthenticated);
+
     await sharedPreferences.setString(accessTokenRefs, '');
     await sharedPreferences.setString(
       refreshTokenRefs,
       '',
     );
-    _authenticationController.add(AuthenticationStatus.unauthenticated);
   }
 
   Future<void> dispose() async {
