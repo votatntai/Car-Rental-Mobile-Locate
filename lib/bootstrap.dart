@@ -31,8 +31,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
       WidgetsFlutterBinding.ensureInitialized();
 
       //* configure
-      await requestPermission();
       await configDI();
+      await locationConfig();
 
       return runApp(await builder());
     },

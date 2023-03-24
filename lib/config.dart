@@ -5,10 +5,9 @@ import 'package:car_rental_locate/app/route/app_route.dart';
 import 'package:car_rental_locate/commons/constants/networks.dart';
 import 'package:car_rental_locate/di.dart';
 import 'package:car_rental_locate/repositories/car_owner_repository.dart';
-import 'package:car_rental_locate/repositories/location_repository.dart';
 import 'package:car_rental_locate/repositories/repositories.dart';
 import 'package:dio/dio.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> configDI() async {
@@ -39,29 +38,33 @@ Future<void> configDI() async {
     ..registerSingleton<Dio>(dio)
     ..registerSingleton<DioHelper>(helper)
     ..registerSingleton<AuthenticationRepository>(authenticationRepository)
-    ..registerSingleton<CarOwnerRepository>(CarOwnerRepository(dio: dio))
-    ..registerSingleton<LocationRepository>(LocationRepository());
+    ..registerSingleton<CarOwnerRepository>(CarOwnerRepository(dio: dio));
 }
 
-Future<void> requestPermission() async {
+Future<void> locationConfig() async {
+  Location location = Location();
+
   bool serviceEnabled;
-  LocationPermission permission;
+  PermissionStatus permissionGranted;
 
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  serviceEnabled = await location.serviceEnabled();
   if (!serviceEnabled) {
-    return Future.error('Location services are disabled.');
-  }
-
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      return Future.error('Location permissions are denied');
+    serviceEnabled = await location.requestService();
+    if (!serviceEnabled) {
+      return;
     }
   }
 
-  if (permission == LocationPermission.deniedForever) {
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
+  permissionGranted = await location.hasPermission();
+  if (permissionGranted == PermissionStatus.denied) {
+    permissionGranted = await location.requestPermission();
+    if (permissionGranted != PermissionStatus.granted) {
+      return;
+    }
+  }
+
+  if (permissionGranted == PermissionStatus.granted) {
+    location.enableBackgroundMode(enable: true);
+    getIt.registerSingleton<Location>(location);
   }
 }

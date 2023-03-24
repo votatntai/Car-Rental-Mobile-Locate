@@ -1,3 +1,4 @@
+import 'package:car_rental_locate/app/bloc/app_bloc.dart';
 import 'package:car_rental_locate/commons/constants/sizes.dart';
 import 'package:car_rental_locate/commons/widgets/app_app_bar.dart';
 import 'package:car_rental_locate/commons/widgets/loading_widget.dart';
@@ -11,7 +12,17 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
+    return BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {
+        final successState = state.mapOrNull(success: (state) => state);
+        if (successState == null) return;
+
+        context.read<AppBloc>().add(
+              AppEvent.carIdChanged(
+                successState.selectedCar?.id,
+              ),
+            );
+      },
       builder: (context, state) {
         final successState = state.mapOrNull(success: (state) => state);
 

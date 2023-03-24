@@ -6,6 +6,7 @@ import 'package:car_rental_locate/repositories/authentication_repository.dart';
 import 'package:car_rental_locate/repositories/car_owner_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:location/location.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -21,7 +22,9 @@ class App extends StatelessWidget {
           ),
         ),
         BlocProvider.value(
-          value: AppBloc(),
+          value: AppBloc(
+            location: getIt.get<Location>(),
+          ),
         ),
       ],
       child: const AppView(),

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:car_rental_locate/models/car.dart';
 import 'package:car_rental_locate/pages/home/car_mock.dart';
-import 'package:car_rental_locate/repositories/location_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_event.dart';
@@ -29,7 +28,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(const HomeState.loading());
 
     emit(
-      HomeState.success(availableCars: carMock, selectedCar: carMock[0]),
+      HomeState.success(
+        availableCars: carMock,
+        selectedCar: carMock[0],
+      ),
     );
   }
 
