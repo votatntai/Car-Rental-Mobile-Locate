@@ -5,7 +5,9 @@ import 'package:car_rental_locate/app/route/app_route.dart';
 import 'package:car_rental_locate/commons/constants/networks.dart';
 import 'package:car_rental_locate/di.dart';
 import 'package:car_rental_locate/repositories/car_owner_repository.dart';
+import 'package:car_rental_locate/repositories/car_repository.dart';
 import 'package:car_rental_locate/repositories/repositories.dart';
+import 'package:car_rental_locate/repositories/tracking_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,13 +34,22 @@ Future<void> configDI() async {
     options: dioOptions,
   );
 
+  final tracking = TrackingRepository();
+
   getIt
     ..registerSingleton<AppRoute>(appRoute)
     ..registerSingleton<SharedPreferences>(sharedPreferences)
     ..registerSingleton<Dio>(dio)
     ..registerSingleton<DioHelper>(helper)
     ..registerSingleton<AuthenticationRepository>(authenticationRepository)
-    ..registerSingleton<CarOwnerRepository>(CarOwnerRepository(dio: dio));
+    ..registerSingleton<CarOwnerRepository>(CarOwnerRepository(dio: dio))
+    ..registerSingleton<CarRepository>(CarRepository(
+      dio: dio,
+      sharedPreferences: sharedPreferences,
+    ))
+    ..registerSingleton<TrackingRepository>(tracking);
+
+  await tracking.connect();
 }
 
 Future<void> locationConfig() async {

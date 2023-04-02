@@ -1,6 +1,15 @@
+import 'package:car_rental_locate/models/additional_charge.dart';
+import 'package:car_rental_locate/models/car_feature.dart';
+import 'package:car_rental_locate/models/car_model.dart';
+import 'package:car_rental_locate/models/car_owner.dart';
+import 'package:car_rental_locate/models/car_type.dart';
 import 'package:car_rental_locate/models/converters/TimeOfDayConverter.dart';
-import 'package:car_rental_locate/models/enums/car_type.dart';
+import 'package:car_rental_locate/models/driver.dart';
 import 'package:car_rental_locate/models/enums/rental_car_type.dart';
+import 'package:car_rental_locate/models/feedback.dart';
+import 'package:car_rental_locate/models/image.dart';
+import 'package:car_rental_locate/models/location.dart';
+import 'package:car_rental_locate/models/production_company.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -10,30 +19,37 @@ part 'car.g.dart';
 
 @freezed
 class Car with _$Car {
+  const Car._();
+
   const factory Car({
     required String id,
-    required String name,
-    required List<String> images,
+    String? name,
+    required String licensePlate,
     required double price,
-    required CarType carType,
-    required String brand,
-    required String description,
-    required String collateral,
-    required String rules,
-    required String location,
-    required double rate,
-    required RentalCarType rentalCarType,
-    @Default(0) int numberTrip,
-    @TimeOfDayConverter() required TimeOfDay startPickUpTime,
-    @TimeOfDayConverter() required TimeOfDay endPickUpTime,
-    @TimeOfDayConverter() required TimeOfDay startReturnTime,
-    @TimeOfDayConverter() required TimeOfDay endReturnTime,
-    double? deliveryDistance,
-    required double distanceLimit,
-    required double overDistancePrice,
-    required double overTimePrice,
-    required String carOwnerId,
+    required double rented,
+    String? description,
+    required List<ImageModel> images,
+    required List<FeedbackModel> feedBacks,
+    required List<CarFeature> carFeatures,
+    required List<CarType> carTypes,
+    ProductionCompany? productionCompany,
+    required CarModel model,
+    CarOwner? carOwner,
+    Driver? driver,
+    required Location location,
+    required AdditionalCharge additionalCharge,
+    required double star,
+    required String status,
+    @TimeOfDayConverter() required TimeOfDay receiveStartTime,
+    @TimeOfDayConverter() required TimeOfDay receiveEndTime,
+    @TimeOfDayConverter() required TimeOfDay returnStartTime,
+    @TimeOfDayConverter() required TimeOfDay returnEndTime,
   }) = _Car;
 
   factory Car.fromJson(Map<String, dynamic> json) => _$CarFromJson(json);
+
+  RentalCarType get rentalCarType {
+    if (driver == null) return RentalCarType.selfDrivingCar;
+    return RentalCarType.carWithDriver;
+  }
 }
