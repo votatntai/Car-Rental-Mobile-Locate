@@ -20,18 +20,24 @@ mixin _$AppEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(String? carId) carIdChanged,
+    required TResult Function(String carId, double latitude, double longitude)
+        locationSend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(String? carId)? carIdChanged,
+    TResult? Function(String carId, double latitude, double longitude)?
+        locationSend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(String? carId)? carIdChanged,
+    TResult Function(String carId, double latitude, double longitude)?
+        locationSend,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +45,21 @@ mixin _$AppEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_CarIdChanged value) carIdChanged,
+    required TResult Function(_LocationSend value) locationSend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_CarIdChanged value)? carIdChanged,
+    TResult? Function(_LocationSend value)? locationSend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_CarIdChanged value)? carIdChanged,
+    TResult Function(_LocationSend value)? locationSend,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -112,6 +121,8 @@ class _$_Started implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(String? carId) carIdChanged,
+    required TResult Function(String carId, double latitude, double longitude)
+        locationSend,
   }) {
     return started();
   }
@@ -121,6 +132,8 @@ class _$_Started implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(String? carId)? carIdChanged,
+    TResult? Function(String carId, double latitude, double longitude)?
+        locationSend,
   }) {
     return started?.call();
   }
@@ -130,6 +143,8 @@ class _$_Started implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(String? carId)? carIdChanged,
+    TResult Function(String carId, double latitude, double longitude)?
+        locationSend,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -143,6 +158,7 @@ class _$_Started implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_CarIdChanged value) carIdChanged,
+    required TResult Function(_LocationSend value) locationSend,
   }) {
     return started(this);
   }
@@ -152,6 +168,7 @@ class _$_Started implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_CarIdChanged value)? carIdChanged,
+    TResult? Function(_LocationSend value)? locationSend,
   }) {
     return started?.call(this);
   }
@@ -161,6 +178,7 @@ class _$_Started implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_CarIdChanged value)? carIdChanged,
+    TResult Function(_LocationSend value)? locationSend,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -240,6 +258,8 @@ class _$_CarIdChanged implements _CarIdChanged {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(String? carId) carIdChanged,
+    required TResult Function(String carId, double latitude, double longitude)
+        locationSend,
   }) {
     return carIdChanged(carId);
   }
@@ -249,6 +269,8 @@ class _$_CarIdChanged implements _CarIdChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(String? carId)? carIdChanged,
+    TResult? Function(String carId, double latitude, double longitude)?
+        locationSend,
   }) {
     return carIdChanged?.call(carId);
   }
@@ -258,6 +280,8 @@ class _$_CarIdChanged implements _CarIdChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(String? carId)? carIdChanged,
+    TResult Function(String carId, double latitude, double longitude)?
+        locationSend,
     required TResult orElse(),
   }) {
     if (carIdChanged != null) {
@@ -271,6 +295,7 @@ class _$_CarIdChanged implements _CarIdChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_CarIdChanged value) carIdChanged,
+    required TResult Function(_LocationSend value) locationSend,
   }) {
     return carIdChanged(this);
   }
@@ -280,6 +305,7 @@ class _$_CarIdChanged implements _CarIdChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_CarIdChanged value)? carIdChanged,
+    TResult? Function(_LocationSend value)? locationSend,
   }) {
     return carIdChanged?.call(this);
   }
@@ -289,6 +315,7 @@ class _$_CarIdChanged implements _CarIdChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_CarIdChanged value)? carIdChanged,
+    TResult Function(_LocationSend value)? locationSend,
     required TResult orElse(),
   }) {
     if (carIdChanged != null) {
@@ -304,6 +331,172 @@ abstract class _CarIdChanged implements AppEvent {
   String? get carId;
   @JsonKey(ignore: true)
   _$$_CarIdChangedCopyWith<_$_CarIdChanged> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_LocationSendCopyWith<$Res> {
+  factory _$$_LocationSendCopyWith(
+          _$_LocationSend value, $Res Function(_$_LocationSend) then) =
+      __$$_LocationSendCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String carId, double latitude, double longitude});
+}
+
+/// @nodoc
+class __$$_LocationSendCopyWithImpl<$Res>
+    extends _$AppEventCopyWithImpl<$Res, _$_LocationSend>
+    implements _$$_LocationSendCopyWith<$Res> {
+  __$$_LocationSendCopyWithImpl(
+      _$_LocationSend _value, $Res Function(_$_LocationSend) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? carId = null,
+    Object? latitude = null,
+    Object? longitude = null,
+  }) {
+    return _then(_$_LocationSend(
+      carId: null == carId
+          ? _value.carId
+          : carId // ignore: cast_nullable_to_non_nullable
+              as String,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_LocationSend implements _LocationSend {
+  const _$_LocationSend(
+      {required this.carId, required this.latitude, required this.longitude});
+
+  @override
+  final String carId;
+  @override
+  final double latitude;
+  @override
+  final double longitude;
+
+  @override
+  String toString() {
+    return 'AppEvent.locationSend(carId: $carId, latitude: $latitude, longitude: $longitude)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_LocationSend &&
+            (identical(other.carId, carId) || other.carId == carId) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, carId, latitude, longitude);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_LocationSendCopyWith<_$_LocationSend> get copyWith =>
+      __$$_LocationSendCopyWithImpl<_$_LocationSend>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String? carId) carIdChanged,
+    required TResult Function(String carId, double latitude, double longitude)
+        locationSend,
+  }) {
+    return locationSend(carId, latitude, longitude);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String? carId)? carIdChanged,
+    TResult? Function(String carId, double latitude, double longitude)?
+        locationSend,
+  }) {
+    return locationSend?.call(carId, latitude, longitude);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String? carId)? carIdChanged,
+    TResult Function(String carId, double latitude, double longitude)?
+        locationSend,
+    required TResult orElse(),
+  }) {
+    if (locationSend != null) {
+      return locationSend(carId, latitude, longitude);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_CarIdChanged value) carIdChanged,
+    required TResult Function(_LocationSend value) locationSend,
+  }) {
+    return locationSend(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_CarIdChanged value)? carIdChanged,
+    TResult? Function(_LocationSend value)? locationSend,
+  }) {
+    return locationSend?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_CarIdChanged value)? carIdChanged,
+    TResult Function(_LocationSend value)? locationSend,
+    required TResult orElse(),
+  }) {
+    if (locationSend != null) {
+      return locationSend(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LocationSend implements AppEvent {
+  const factory _LocationSend(
+      {required final String carId,
+      required final double latitude,
+      required final double longitude}) = _$_LocationSend;
+
+  String get carId;
+  double get latitude;
+  double get longitude;
+  @JsonKey(ignore: true)
+  _$$_LocationSendCopyWith<_$_LocationSend> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

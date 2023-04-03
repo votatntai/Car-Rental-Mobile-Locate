@@ -16,10 +16,24 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }) : super(const AppState()) {
     on<_Started>(_onStarted);
     on<_CarIdChanged>(_onCarIdChanged);
+    on<_LocationSend>(_onLocationSend);
 
     location.onLocationChanged.listen((event) {
-      print('$event - $carId');
+      // print('$event - $carId');
+
+      if (carId == null || event.latitude == null || event.longitude == null) {
+        return;
+      }
+      add(_LocationSend(
+        carId: carId!,
+        latitude: event.latitude!,
+        longitude: event.longitude!,
+      ));
     });
+
+    // trackingRepository.connection.on('ReceiveLocation', (arguments) {
+    //   print(arguments.toString());
+    // });
   }
 
   final Location location;
@@ -38,4 +52,20 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     _Started event,
     Emitter<AppState> emit,
   ) {}
+
+  FutureOr<void> _onLocationSend(
+    _LocationSend event,
+    Emitter<AppState> emit,
+  ) async {
+    await trackingRepository.connection.invoke(
+      'SendLocation',
+      args: <Object>[
+        {
+          'latitude': event.latitude,
+          'longitude': event.longitude,
+          'carId': event.carId,
+        }
+      ],
+    );
+  }
 }
