@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:car_rental_locate/repositories/tracking_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:location/location.dart';
+import 'package:signalr_netcore/signalr_client.dart';
 
 part 'app_bloc.freezed.dart';
 part 'app_event.dart';
@@ -57,15 +58,17 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     _LocationSend event,
     Emitter<AppState> emit,
   ) async {
-    await trackingRepository.connection.invoke(
-      'SendLocation',
-      args: <Object>[
-        {
-          'latitude': event.latitude,
-          'longitude': event.longitude,
-          'carId': event.carId,
-        }
-      ],
-    );
+    if (trackingRepository.connection.state == HubConnectionState.Connected) {
+      await trackingRepository.connection.invoke(
+        'SendLocation',
+        args: <Object>[
+          {
+            'latitude': event.latitude,
+            'longitude': event.longitude,
+            'carId': event.carId,
+          }
+        ],
+      );
+    }
   }
 }
