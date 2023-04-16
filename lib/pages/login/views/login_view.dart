@@ -79,7 +79,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   const SizedBox(height: s16),
                   Text(
-                    'Đăng nhập vào tai khoản',
+                    'Đăng nhập vào tài khoản',
                     style: boldTextStyle(
                       size: 24,
                     ),

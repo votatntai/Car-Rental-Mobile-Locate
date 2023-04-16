@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:car_rental_locate/commons/constants/cars.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 
@@ -8,6 +10,13 @@ class TrackingRepository {
 
   Future<void> connect() async {
     connection = HubConnectionBuilder().withUrl(socketUrl).build();
-    await connection.start();
+    if (connection.state != HubConnectionState.Connected) {
+      try {
+        await connection.start();
+        // ignore: empty_catches
+      } catch (e) {
+        log(e.toString());
+      }
+    }
   }
 }
