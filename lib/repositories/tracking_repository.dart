@@ -13,6 +13,7 @@ class TrackingRepository {
     if (connection.state != HubConnectionState.Connected) {
       try {
         await connection.start();
+        log('Connected to SignalR server');
         // ignore: empty_catches
       } catch (e) {
         log(e.toString());
