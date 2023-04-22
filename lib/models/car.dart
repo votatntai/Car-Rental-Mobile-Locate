@@ -48,8 +48,25 @@ class Car with _$Car {
 
   factory Car.fromJson(Map<String, dynamic> json) => _$CarFromJson(json);
 
-  RentalCarType get rentalCarType {
-    if (driver == null) return RentalCarType.selfDrivingCar;
-    return RentalCarType.carWithDriver;
+  // RentalCarType get rentalCarType {
+  //   if (driver == null) return RentalCarType.selfDrivingCar;
+  //   return RentalCarType.carWithDriver;
+  // }
+
+  String? get imageUrl {
+    if (images == null || images?.isEmpty == true) return null;
+
+    final img =
+        images?.where((element) => element.type == 'Thumbnail').toList();
+
+    if (img != null && img.isNotEmpty) return img.first.url;
+
+    return images?.first.url;
+  }
+
+  List<ImageModel>? get thumbnails {
+    if (images == null || images?.isEmpty == true) return [];
+
+    return images?.where((element) => element.type == 'Thumbnail').toList();
   }
 }

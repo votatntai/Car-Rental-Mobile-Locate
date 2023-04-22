@@ -22,13 +22,15 @@ class CarItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            car.images?.isNotEmpty == true
+            car.imageUrl != null
                 ? CachedNetworkImage(
                     height: 200,
                     width: double.infinity,
+                    imageUrl: car.imageUrl!,
                     fit: BoxFit.fill,
-                    imageUrl: car.images!.first.url,
-                  )
+                    errorWidget: (context, url, error) {
+                      return const Icon(Icons.error);
+                    })
                 : const Image(
                     height: 200,
                     width: double.infinity,
