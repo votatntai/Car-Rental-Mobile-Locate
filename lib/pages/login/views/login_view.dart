@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:car_rental_locate/commons/constants/colors.dart';
 import 'package:car_rental_locate/commons/constants/images.dart';
 import 'package:car_rental_locate/commons/constants/sizes.dart';
 import 'package:car_rental_locate/commons/loading_dialog_service.dart';
@@ -59,7 +60,11 @@ class _LoginViewState extends State<LoginView> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: appAppBar(context, leading: false),
+        appBar: appAppBar(
+          context,
+          leading: false,
+          backgroundColor: Colors.transparent,
+        ),
         body: SingleChildScrollView(
           child: Container(
             alignment: Alignment.center,
@@ -153,7 +158,7 @@ class _LoginViewState extends State<LoginView> {
                       decoration: boxDecorationWithRoundedCorners(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(45)),
-                        backgroundColor: black,
+                        backgroundColor: CustomColors.primary,
                       ),
                       child:
                           Text('Đăng nhập', style: boldTextStyle(color: white)),
