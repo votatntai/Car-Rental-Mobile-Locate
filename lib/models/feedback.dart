@@ -7,10 +7,13 @@ part 'feedback.g.dart';
 class FeedbackModel with _$FeedbackModel {
   const factory FeedbackModel({
     required String id,
-    required String orderId,
-    required double customerId,
-    required int start,
+    String? orderId,
+    String? customerId,
+    String? driverId,
+    String? carId,
+    int? star,
     String? content,
+    required DateTime createAt,
   }) = _FeedbackModel;
 
   factory FeedbackModel.fromJson(Map<String, dynamic> json) =>

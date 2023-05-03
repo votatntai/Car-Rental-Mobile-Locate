@@ -43,13 +43,14 @@ class CarItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: s08),
               child: Text(
-                car.name ?? '',
+                '${car.productionCompany?.name} ${car.name}',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
+            const SizedBox(height: s08),
           ],
         ),
       ),
